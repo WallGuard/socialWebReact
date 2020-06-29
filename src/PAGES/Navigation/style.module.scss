@@ -1,0 +1,29 @@
+.nav_wrapper {
+    grid-area: n;
+    background-color: #bbbbbb;
+    margin-top: 10px;
+    margin-left: 15px;
+    height: 100%;
+    min-height: 300px;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 10px 2px #333333;
+  }
+
+.nav {
+    margin-top: 40px;
+    margin-left: 40px;
+
+    &__item {
+        margin-bottom: 3px;
+        
+        &_link {
+            text-decoration: none;
+            padding: 2px;
+        }
+    }
+}
+
+.active {
+    color: #FFFFFF;
+}

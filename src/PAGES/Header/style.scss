@@ -1,0 +1,22 @@
+.header {
+    grid-area: h;
+    background-color:  #333;
+    display: flex;
+    height: 55px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    box-shadow: 0px 5px 10px 2px #111111;
+
+    &__logo {
+        margin: auto 0;
+        margin-left: 25%;
+        height: 50px;
+        width: 50px;
+    }
+
+    &__search {
+        margin: auto 5px;
+        width: 200px;
+        height: 25px;
+    }
+  }

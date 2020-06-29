@@ -1,0 +1,27 @@
+.post_wrapper {
+    margin-left: 10px;
+    background-color: grey;
+    border-radius: 25px;
+    max-width: 95%;
+}
+
+.post {
+    display: flex;
+    margin: 5px;
+
+    &__img {
+        height: 50px;
+        width: 50px;
+        border-radius: 100%;
+    }
+
+    &__text {
+        align-self: center;
+        margin-left: 10px;
+        max-width: 90%;
+    }
+
+    &__like {
+        margin-left: 20px;
+    }
+}
