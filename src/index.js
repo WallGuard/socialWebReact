@@ -13,8 +13,6 @@ const rerenderEntireTree = () => {
     //addPost: store.addPost.bind(store),
     //updateNewPostText: store.updateNewPostText.bind(store),
     state: store.getState(),
-    sendMessage: store.sendMessage.bind(store),
-    updateNewMessageText: store.updateNewMessageText.bind(store),
   }
   ReactDOM.render(
     <React.StrictMode>

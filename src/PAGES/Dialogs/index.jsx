@@ -2,7 +2,7 @@ import React from "react";
 import "./style.scss";
 import UserNames from "./User-Names";
 import Messages from './Messages';
-import {sendMessageActionCreator, updateNewMessageTextActionCreator} from '../../Redux/store';
+import {sendMessageActionCreator, updateNewMessageTextActionCreator} from '../../Redux/reducers/dialogs-reducer';
 
 const Dialogs = (props) => {
   const {
