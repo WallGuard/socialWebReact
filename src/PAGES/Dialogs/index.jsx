@@ -2,6 +2,7 @@ import React from "react";
 import "./style.scss";
 import UserNames from "./User-Names";
 import Messages from './Messages';
+import {sendMessageActionCreator, updateNewMessageTextActionCreator} from '../../Redux/store';
 
 const Dialogs = (props) => {
   const {
@@ -22,13 +23,14 @@ const Dialogs = (props) => {
     const newMessageElement = React.createRef();
 
     const sendMessage = () => {
-      props.sendMessage();
+      newMessageElement.current.value !== '' && 
+      props.dispatch(sendMessageActionCreator());
       newMessageElement.current.value = '';
     };
 
     const onPostChange = () => {
       const newMessage = newMessageElement.current.value
-      props.updateNewMessageText(newMessage);
+      props.dispatch(updateNewMessageTextActionCreator(newMessage));
     }
 
   return (

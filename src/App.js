@@ -13,15 +13,13 @@ const App = (props) => {
       <Navbar />
       <div>
         <Route path='/profile' render={ () => <Profile
+            dispatch={props.dispatch}
             state={props.data.state.profilePage}
-            addPost={props.data.addPost}
-            updateNewPostText={props.data.updateNewPostText}
           />} 
         />
         <Route /*exact*/ path='/dialogs' render={ () => <Dialogs
+            dispatch={props.dispatch}
             state={props.data.state.dialogsPage}
-            sendMessage={props.data.sendMessage}
-            updateNewMessageText={props.data.updateNewMessageText}
           />}
         />
       </div>
