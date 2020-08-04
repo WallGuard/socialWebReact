@@ -2,6 +2,7 @@ import React from "react";
 import s from "./style.module.scss";
 
 const Post = (props) => {
+
   return (
     <div className={s.post_wrapper}>
       <div className={s.post}>
@@ -15,6 +16,8 @@ const Post = (props) => {
       <div className={s.post__like}>
         <span>Likes</span>
         <span> {props.likes} </span>
+        <button>Like</button>
+        <button>Dis</button>
       </div>
     </div>
   );

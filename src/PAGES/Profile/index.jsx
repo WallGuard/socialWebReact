@@ -1,30 +1,9 @@
 import React from "react";
 import "./style.scss";
-import Post from "./Posts";
-import { addPostActionCreator, updateNewPostTextActionCreator } from '../../Redux/reducers/profile-reducer';
-
-
+import MyPostsContainer from "./MyPosts/container";
+//import { addPostActionCreator, updateNewPostTextActionCreator } from '../../Redux/reducers/profile-reducer';
 
 const Profile = (props) => {
-  const {
-    postData = props.state.postData,
-  } = props;
-  
-  const messageElements = postData.map((el) => (
-    <Post message={el.message} likes={el.likes} img={el.img} />
-  ));
-
-  const newPostElement = React.createRef();
-  const addPost = () => {
-    newPostElement.current.value !== '' &&
-    props.dispatch(addPostActionCreator());
-    newPostElement.current.value = '';
-  };
-
-  const onPostChange = () => {
-    const text = newPostElement.current.value;
-    props.dispatch(updateNewPostTextActionCreator(text));
-  };
 
   return (
     <div className="content-wrapper">
@@ -41,18 +20,7 @@ const Profile = (props) => {
             alt="ava"
           />
         </div>
-        <div>
-          <div>
-            <h3>My posts</h3>
-          </div>
-          <div>
-            <textarea ref={newPostElement} onChange={onPostChange} />
-          </div>
-          <div>
-            <button onClick={addPost}>Add post</button>
-          </div>
-          {messageElements}
-        </div>
+        <MyPostsContainer store={props.store} />
       </div>
     </div>
   );

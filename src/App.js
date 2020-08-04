@@ -2,9 +2,10 @@ import React from 'react';
 import './App.scss';
 import { Route } from 'react-router-dom';
 import Header from './PAGES/Header';
-import Profile from './PAGES/Profile';
+//import Profile from './PAGES/Profile';
 import Dialogs from './PAGES/Dialogs';
 import Navbar from './PAGES/Navigation';
+import Profile from './PAGES/Profile/';
 
 const App = (props) => {
   return (
@@ -13,8 +14,7 @@ const App = (props) => {
       <Navbar />
       <div>
         <Route path='/profile' render={ () => <Profile
-            dispatch={props.dispatch}
-            state={props.data.state.profilePage}
+            store={props.store}
           />} 
         />
         <Route /*exact*/ path='/dialogs' render={ () => <Dialogs
