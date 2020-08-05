@@ -1,10 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
-import store from './Redux/redux-store';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.scss";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
+import store from "./Redux/redux-store";
+import { Provider } from './StoreContext';
 
 const { subscribe } = store;
 
@@ -13,20 +14,18 @@ const rerenderEntireTree = () => {
     //addPost: store.addPost.bind(store),
     //updateNewPostText: store.updateNewPostText.bind(store),
     state: store.getState(),
-  }
+  };
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App
-          data={data}
-          dispatch={store.dispatch.bind(store)}
-          store={store}
-        />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </BrowserRouter>
     </React.StrictMode>,
-    document.getElementById('root')
+    document.getElementById("root")
   );
-}
+};
 
 rerenderEntireTree();
 subscribe(rerenderEntireTree);

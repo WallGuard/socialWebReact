@@ -20,7 +20,7 @@ const Profile = (props) => {
             alt="ava"
           />
         </div>
-        <MyPostsContainer store={props.store} />
+        <MyPostsContainer />
       </div>
     </div>
   );

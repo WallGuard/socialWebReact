@@ -14,11 +14,9 @@ const App = (props) => {
       <Navbar />
       <div>
         <Route path='/profile' render={ () => <Profile
-            store={props.store}
           />} 
         />
         <Route /*exact*/ path='/dialogs' render={ () => <DialogsContainer
-            store={props.store}
           />}
         />
       </div>
