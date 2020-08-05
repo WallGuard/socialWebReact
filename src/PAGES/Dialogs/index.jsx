@@ -20,16 +20,18 @@ const Dialogs = (props) => {
       <Messages message={el.text} />
     ));
 
-    const newMessageElement = React.createRef();
+    //const newMessageElement = React.createRef();
+    const newMessageElement = props.state.newMessage;
 
     const sendMessage = () => {
-      newMessageElement.current.value !== '' && 
+      newMessageElement.value !== '' && 
       props.dispatch(sendMessageActionCreator());
-      newMessageElement.current.value = '';
+      //newMessageElement.current.value = '';
     };
 
-    const onPostChange = () => {
-      const newMessage = newMessageElement.current.value
+    const onPostChange = (e) => {
+      //const newMessage = newMessageElement.current.value
+      const newMessage = e.target.value;
       props.dispatch(updateNewMessageTextActionCreator(newMessage));
     }
 
@@ -41,7 +43,8 @@ const Dialogs = (props) => {
       <div className='field'>
         {messageElements}
           <textarea
-            ref={newMessageElement}
+            value={newMessageElement}
+            //ref={newMessageElement}
             onChange={onPostChange}
           >
           </textarea>
