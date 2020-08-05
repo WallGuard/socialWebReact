@@ -7,7 +7,7 @@ const MyPosts = (props) => {
   const { postData = props.state.postData } = props;
 
   const messageElements = postData.map((el) => (
-    <Post message={el.message} likes={el.likes} img={el.img} />
+    <Post key={el.id} message={el.message} likes={el.likes} img={el.img} />
   ));
 
   const newPostElement = React.createRef();

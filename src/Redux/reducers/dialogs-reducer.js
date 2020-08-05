@@ -47,20 +47,19 @@ let initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
-
     switch(action.type) {
         case SEND_MESSAGE : {
             let newMessage = {
                 text: state.newMessage
             };
-    
-            state.messages.push(newMessage);
-            state.newMessage = '';
-            return state;
+            return {
+                ...state,
+                messages: [...state.messages, {...newMessage,}],
+                newMessage: '',
+            };
         }
         case UPDATE_NEW_MESSAGE_TEXT : {
-            state.newMessage = action.newText;
-            return state;
+            return {...state, newMessage: action.newText,};
         }
         default:
             { console.log(`Error: this ${action.type} type doesn't exist`) }

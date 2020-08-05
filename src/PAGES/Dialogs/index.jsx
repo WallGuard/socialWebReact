@@ -4,23 +4,21 @@ import UserNames from "./User-Names";
 import Messages from './Messages';
 
 const Dialogs = (props) => {
-  const {
-    users,
-    messages
-  } = props.state;
+  
+  const { users, messages } = props.dialogsPage;
 
   const userElements = users
     .map( el => (
-      <UserNames id={el.id} name={`${el.firstName} ${el.lastName}`} />
+      <UserNames key={el.id} id={el.id} name={`${el.firstName} ${el.lastName}`} />
     ));
   
     const messageElements = messages
     .map( el => (
-      <Messages message={el.text} />
+      <Messages key={el.id} message={el.text} />
     ));
 
     //const newMessageElement = React.createRef();
-    const newMessageElement = props.state.newMessage;
+    const newMessageElement = props.dialogsPage.newMessage;
 
     const onSendMessage = () => {
       newMessageElement.value !== '' && 
