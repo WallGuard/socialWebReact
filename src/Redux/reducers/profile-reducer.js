@@ -42,26 +42,26 @@ const profileReducer = (state = initialState, action) => {
 
     switch(action.type) {
         case ADD_POST : {
-            debugger;
             let newPost = {
                 id: state.postData.length + 1,
                 message: state.newPostText,
                 likes: 0,
                 img: img,
             }
-            let stateCopy = {...state};
-            stateCopy.postData = [...state.postData];
-            stateCopy.postData.push(newPost)
-            stateCopy.newPostText = '';
-            return stateCopy;
+            return {
+                ...state,
+                postData: [...state.postData, {...newPost}],
+                newPostText: '',
+            };
         }
         case UPDATE_NEW_POST_TEXT : {
-            let stateCopy = {...state};
-            stateCopy.newPostText = action.newText;
-            return stateCopy;
+            return {
+                ...state,
+                newPostText: action.newText,
+            };
         }
         default: 
-            { console.log(`Error: this ${action.type} type doesn't exist`) }
+            console.log(`Error: this ${action.type} type doesn't exist`)
             return state;
     }
 }
