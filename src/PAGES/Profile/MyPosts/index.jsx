@@ -10,15 +10,15 @@ const MyPosts = (props) => {
     <Post key={el.id} message={el.message} likes={el.likes} img={el.img} />
   ));
 
-  const newPostElement = React.createRef();
+  const newPostText = props.newPostText
+
   const onAddPost = () => {
-    newPostElement.current.value !== "" && props.addPost();
+    newPostText !== '' && props.addPost();
     //props.dispatch(addPostActionCreator());
-    newPostElement.current.value = "";
   };
 
-  const onPostChange = () => {
-    const text = newPostElement.current.value;
+  const onPostChange = (e) => {
+    const text = e.target.value;
     props.updateNewPostText(text);
     //props.dispatch(updateNewPostTextActionCreator(text));
   };
@@ -29,7 +29,7 @@ const MyPosts = (props) => {
         <h3>My posts</h3>
       </div>
       <div>
-        <textarea ref={newPostElement} onChange={onPostChange} />
+        <textarea value={newPostText} onChange={onPostChange} />
       </div>
       <div>
         <button onClick={onAddPost}>Add post</button>

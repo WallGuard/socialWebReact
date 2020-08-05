@@ -21,7 +21,7 @@ const Dialogs = (props) => {
     const newMessageElement = props.dialogsPage.newMessage;
 
     const onSendMessage = () => {
-      newMessageElement.value !== '' && 
+      newMessageElement !== '' && 
       props.sendMessage();
       //newMessageElement.current.value = '';
     };
