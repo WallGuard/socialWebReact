@@ -3,9 +3,9 @@ import './App.scss';
 import { Route } from 'react-router-dom';
 import Header from './PAGES/Header';
 //import Profile from './PAGES/Profile';
-import Dialogs from './PAGES/Dialogs';
 import Navbar from './PAGES/Navigation';
 import Profile from './PAGES/Profile/';
+import DialogsContainer from './PAGES/Dialogs/container';
 
 const App = (props) => {
   return (
@@ -17,9 +17,8 @@ const App = (props) => {
             store={props.store}
           />} 
         />
-        <Route /*exact*/ path='/dialogs' render={ () => <Dialogs
-            dispatch={props.dispatch}
-            state={props.data.state.dialogsPage}
+        <Route /*exact*/ path='/dialogs' render={ () => <DialogsContainer
+            store={props.store}
           />}
         />
       </div>

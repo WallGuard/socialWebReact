@@ -2,7 +2,6 @@ import React from "react";
 import "./style.scss";
 import UserNames from "./User-Names";
 import Messages from './Messages';
-import {sendMessageActionCreator, updateNewMessageTextActionCreator} from '../../Redux/reducers/dialogs-reducer';
 
 const Dialogs = (props) => {
   const {
@@ -23,16 +22,16 @@ const Dialogs = (props) => {
     //const newMessageElement = React.createRef();
     const newMessageElement = props.state.newMessage;
 
-    const sendMessage = () => {
+    const onSendMessage = () => {
       newMessageElement.value !== '' && 
-      props.dispatch(sendMessageActionCreator());
+      props.sendMessage();
       //newMessageElement.current.value = '';
     };
 
     const onPostChange = (e) => {
       //const newMessage = newMessageElement.current.value
       const newMessage = e.target.value;
-      props.dispatch(updateNewMessageTextActionCreator(newMessage));
+      props.changePost(newMessage);
     }
 
   return (
@@ -49,7 +48,7 @@ const Dialogs = (props) => {
           >
           </textarea>
           <button
-            onClick={sendMessage}
+            onClick={onSendMessage}
           >
             Send
           </button>
