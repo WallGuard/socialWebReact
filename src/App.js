@@ -13,12 +13,8 @@ const App = (props) => {
       <Header />
       <Navbar />
       <div>
-        <Route path='/profile' render={ () => <Profile
-          />} 
-        />
-        <Route /*exact*/ path='/dialogs' render={ () => <DialogsContainer
-          />}
-        />
+        <Route path='/profile' render={ () => <Profile />} />
+        <Route /*exact*/ path='/dialogs' render={ () => <DialogsContainer />} />
       </div>
     </div>
   );

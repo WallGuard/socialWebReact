@@ -10,11 +10,7 @@ import { Provider } from './StoreContext';
 const { subscribe } = store;
 
 const rerenderEntireTree = () => {
-  const data = {
-    //addPost: store.addPost.bind(store),
-    //updateNewPostText: store.updateNewPostText.bind(store),
-    state: store.getState(),
-  };
+
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
