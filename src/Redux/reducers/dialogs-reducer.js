@@ -61,7 +61,6 @@ const dialogsReducer = (state = initialState, action) => {
         case UPDATE_NEW_MESSAGE_TEXT :
             return {...state, newMessage: action.newText,};
         default:
-            console.log(`Error: this ${action.type} type doesn't exist`);
             return state;
     }
 }

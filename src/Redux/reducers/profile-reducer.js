@@ -61,7 +61,6 @@ const profileReducer = (state = initialState, action) => {
             };
         }
         default: 
-            console.log(`Error: this ${action.type} type doesn't exist`)
             return state;
     }
 }

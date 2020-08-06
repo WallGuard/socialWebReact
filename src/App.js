@@ -6,6 +6,7 @@ import Header from './PAGES/Header';
 import Navbar from './PAGES/Navigation';
 import Profile from './PAGES/Profile/';
 import DialogsContainer from './PAGES/Dialogs/container';
+import UsersContainer from './PAGES/Users/container';
 
 const App = (props) => {
   return (
@@ -15,6 +16,7 @@ const App = (props) => {
       <div>
         <Route path='/profile' render={ () => <Profile />} />
         <Route /*exact*/ path='/dialogs' render={ () => <DialogsContainer />} />
+        <Route /*exact*/ path='/users' render={ () => <UsersContainer />} />
       </div>
     </div>
   );
