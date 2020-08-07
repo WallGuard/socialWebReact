@@ -3,6 +3,13 @@ import s from "./style.module.scss";
 
 const Post = (props) => {
 
+  const onAddLike = () => {
+    props.addLike(props.id)
+  };
+  const onRemoveLike = () => {
+    props.removeLike(props.id)
+  };
+
   return (
     <div className={s.post_wrapper}>
       <div className={s.post}>
@@ -16,8 +23,8 @@ const Post = (props) => {
       <div className={s.post__like}>
         <span>Likes</span>
         <span> {props.likes} </span>
-        <button>Like</button>
-        <button>Dis</button>
+        <button onClick={onAddLike}>Like</button>
+        <button onClick={onRemoveLike}>Dis</button>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ const Users = (props) => {
             fullName: 'Mikhail',
             gender: 'male',
             status: 'ok',
-            img: malePic,
+            img: 'no',
             followed: true,
             location: {
                 city: 'Taganrog',
@@ -24,7 +24,7 @@ const Users = (props) => {
             fullName: 'Constantine',
             gender: 'male',
             status: 'ok',
-            img: malePic,
+            img: 'no',
             followed: false,
             location: {
                 city: 'Volgograd',
@@ -36,7 +36,7 @@ const Users = (props) => {
             fullName: 'Simona',
             gender: 'female',
             status: 'ok',
-            img: femalePic,
+            img: 'no',
             followed: true,
             location: {
                 city: 'Novosibirsk',
@@ -46,6 +46,10 @@ const Users = (props) => {
         ],
     );
 
+    const validatePic = (gender) => {
+        return gender === 'male' ? malePic : femalePic
+    };
+
     return (
         <div>
             {
@@ -53,10 +57,16 @@ const Users = (props) => {
                     <div key={u.id}>
                         <div>
                         <div>
-                            <img src={u.img} width='100px' alt='avatar' />
+                            <img
+                                src={u.img === 'no' || undefined || null ?
+                                    validatePic(u.gender)
+                                    : u.img}
+                                width='100px'
+                                alt='avatar' />
                         </div>
                             { !u.followed ?
-                                <button onClick={() => props.follow(u.id)}>Follow</button> :
+                                <button onClick={() => props.follow(u.id)}>Follow</button>
+                                :
                                 <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
                             }
                         </div>

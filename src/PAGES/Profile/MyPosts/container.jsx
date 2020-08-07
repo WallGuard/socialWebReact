@@ -2,6 +2,8 @@ import "./style.scss";
 import {
   addPostActionCreator,
   updateNewPostTextActionCreator,
+  addLikeAC,
+  removeLikeAC,
 } from "../../../Redux/reducers/profile-reducer";
 import MyPosts from ".";
 import { connect } from "react-redux";
@@ -17,6 +19,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addPost: () => dispatch(addPostActionCreator()),
     updateNewPostText: (text) => dispatch(updateNewPostTextActionCreator(text)),
+    addLike: (postID) => dispatch(addLikeAC(postID)),
+    removeLike: (postID) => dispatch(removeLikeAC(postID)),
   }
 }
 

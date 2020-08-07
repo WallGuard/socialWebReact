@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const ADD_LIKE = 'ADD-LIKE'
+const REMOVE_LIKE = 'REMOVE-LIKE'
 const img = 'https://s3.amazonaws.com/liberty-uploads/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg';
 
 let initialState = {
@@ -41,7 +43,7 @@ let initialState = {
 const profileReducer = (state = initialState, action) => {
 
     switch(action.type) {
-        case ADD_POST : {
+        case ADD_POST :
             let newPost = {
                 id: state.postData.length + 1,
                 message: state.newPostText,
@@ -53,13 +55,29 @@ const profileReducer = (state = initialState, action) => {
                 postData: [...state.postData, {...newPost}],
                 newPostText: '',
             };
-        }
-        case UPDATE_NEW_POST_TEXT : {
+        case UPDATE_NEW_POST_TEXT :
             return {
                 ...state,
                 newPostText: action.newText,
             };
-        }
+            case ADD_LIKE :
+                return {
+                    ...state,
+                    postData: state.postData.map( p => {
+                        if (p.id === action.postID) {
+                            return {...p, likes: p.likes + 1}
+                        };
+                        return p;})
+                };
+                case REMOVE_LIKE :
+                    return {
+                        ...state,
+                        postData: state.postData.map( p => {
+                            if (p.id === action.postID) {
+                                return {...p, likes: p.likes - 1}
+                            };
+                            return p;})
+                    };
         default: 
             return state;
     }
@@ -71,5 +89,11 @@ export const addPostActionCreator = () => {
 export const updateNewPostTextActionCreator = (text) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: text};
   };
+export const addLikeAC = (postID) => {
+    return {type: ADD_LIKE, postID};
+};
+export const removeLikeAC = (postID) => {
+    return {type: REMOVE_LIKE, postID};
+};
 
 export default profileReducer;
