@@ -63,7 +63,7 @@ const dialogsReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};
 
 export const sendMessageActionCreator = () => {
     return {type: SEND_MESSAGE};

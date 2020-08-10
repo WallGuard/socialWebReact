@@ -1,50 +1,17 @@
 import React from 'react';
+import * as axios from 'axios';
 const malePic = 'https://toppng.com/uploads/preview/login-icons-user-flat-icon-115534363917nmr24mjcm.png';
 const femalePic = 'https://www.pinclipart.com/picdir/middle/164-1640717_free-user-icon-flat-189024-download-user-icon.png';
 
 const Users = (props) => {
-
+    const getUSers = () => {
     props.users.length === 0 &&
-    props.setUsers( [
-        {
-            id: 1,
-            fullName: 'Mikhail',
-            gender: 'male',
-            status: 'ok',
-            img: 'no',
-            followed: true,
-            location: {
-                city: 'Taganrog',
-                country: 'Russia',
-            },
-            
-        },
-        {
-            id: 2,
-            fullName: 'Constantine',
-            gender: 'male',
-            status: 'ok',
-            img: 'no',
-            followed: false,
-            location: {
-                city: 'Volgograd',
-                country: 'Russia',
-            },
-        },
-        {
-            id: 3,
-            fullName: 'Simona',
-            gender: 'female',
-            status: 'ok',
-            img: 'no',
-            followed: true,
-            location: {
-                city: 'Novosibirsk',
-                country: 'Russia',
-            },
-        },
-        ],
-    );
+        axios.get('http://localhost:4000/api/users')
+            .then(response => {
+                debugger;
+                props.setUsers(response.data)
+        });
+    }
 
     const validatePic = (gender) => {
         return gender === 'male' ? malePic : femalePic
@@ -52,6 +19,7 @@ const Users = (props) => {
 
     return (
         <div>
+            <button onClick={getUSers}>Get Users</button>
             {
                 props.users.map(u => 
                     <div key={u.id}>
