@@ -1,30 +1,32 @@
 import React from 'react';
 import * as axios from 'axios';
-import Users from './index';
 import { connect } from 'react-redux';
+import Users from './index';
 import {
-    followAC,
-    unfollowAC,
-    setUsersAC,
-    setCurrentPageAC,
-    setUsersTotalCountAC,
-    toggleIsFetchingAC
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetching,
 } from '../../Redux/reducers/users-reducer';
 import Preloader from '../common/Preloader';
 
 class UsersContainer extends React.Component {
 
-    componentDidMount() {
-        this.props.toggleIsFetching(true)
-        axios.get(`http://127.0.0.1:4000/api/users?page=${this.props.currentPage}&limit=${this.props.pageSize}`)
+    getUsersFromDB = (page) => {
+        axios.get(`http://127.0.0.1:4000/api/users?page=${page}&limit=${this.props.pageSize}`)
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.result)
-                this.props.seTotalUsersCount(response.data.totalCount)
+                this.props.setTotalUsersCount(response.data.totalCount)
         });
     }
-    
-    
+
+    componentDidMount() {
+        this.props.toggleIsFetching(true)
+        this.getUsersFromDB(this.props.currentPage)
+    }
 
     onFollowClick = (id) => this.props.follow(id);
     onUnfollowClick = (id) => this.props.unfollow(id);
@@ -32,12 +34,7 @@ class UsersContainer extends React.Component {
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true)
-        axios.get(`http://127.0.0.1:4000/api/users?page=${pageNumber}&limit=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.result)
-                this.props.toggleIsFetching(false)
-                this.props.seTotalUsersCount(response.data.totalCount)
-        });
+        this.getUsersFromDB(pageNumber)
     }
 
     render() {
@@ -52,7 +49,7 @@ class UsersContainer extends React.Component {
                 onFollowClick={this.onFollowClick}
                 onUnfollowClick={this.onUnfollowClick}
             />
-         </>
+        </>
     }
 } 
 
@@ -66,27 +63,11 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        seTotalUsersCount: (totalCount) => {
-            dispatch(setUsersTotalCountAC(totalCount))
-        },
-        toggleIsFetching: (isFetching) => {
-            dispatch(toggleIsFetchingAC(isFetching))
-        },
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetching,
+    })(UsersContainer);

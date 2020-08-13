@@ -1,9 +1,12 @@
 import React from "react";
 import "./style.scss";
 import MyPostsContainer from "./MyPosts/container";
+import Preloader from "../common/Preloader";
 //import { addPostActionCreator, updateNewPostTextActionCreator } from '../../Redux/reducers/profile-reducer';
 
 const Profile = (props) => {
+  if (!props.profile) { return <Preloader /> }
+  console.log(props.profile.photos.large);
 
   return (
     <div className="content-wrapper">
@@ -16,7 +19,10 @@ const Profile = (props) => {
         <div className="content__profile">
           <img
             className="content__profile-ava"
-            src="https://i.pinimg.com/originals/ca/76/0b/ca760b70976b52578da88e06973af542.jpg"
+            src={!props.profile.photos.large ?
+              "https://i.pinimg.com/originals/ca/76/0b/ca760b70976b52578da88e06973af542.jpg"
+              :
+              props.profile.photos.large}
             alt="ava"
           />
         </div>
