@@ -6,7 +6,6 @@ import Preloader from "../common/Preloader";
 
 const Profile = (props) => {
   if (!props.profile) { return <Preloader /> }
-  console.log(props.profile.photos.large);
 
   return (
     <div className="content-wrapper">

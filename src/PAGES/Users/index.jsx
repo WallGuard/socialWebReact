@@ -7,9 +7,8 @@ const femalePic = 'https://www.pinclipart.com/picdir/middle/164-1640717_free-use
 
 const Users = (props) => {
 
-    const {totalUsersCount, pageSize, currentPage, isDisabledFollowingButton} = props;
+    const {totalUsersCount, pageSize, currentPage, arrayOfFollowingUsers} = props;
         const pagesCount = Math.ceil(totalUsersCount / pageSize);
-        console.log(isDisabledFollowingButton)
         let pages = []
         for (let i = 1; i <= pagesCount; i++) {
             pages.push(i);
@@ -43,9 +42,9 @@ const Users = (props) => {
                                 </NavLink>
                             </div>
                             { !u.followed ?
-                                <button disabled={isDisabledFollowingButton} onClick={() => props.onFollowClick(u.id)}>Follow</button>
+                                <button disabled={arrayOfFollowingUsers.some(id => id === u.id)} onClick={() => props.onFollowClick(u.id)}>Follow</button>
                                 :
-                                <button disabled={isDisabledFollowingButton} onClick={() => props.onUnfollowClick(u.id)}>Unfollow</button>
+                                <button disabled={arrayOfFollowingUsers.some(id => id === u.id)} onClick={() => props.onUnfollowClick(u.id)}>Unfollow</button>
                             }
                         </div>
                         <div>

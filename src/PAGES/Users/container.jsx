@@ -31,8 +31,7 @@ class UsersContainer extends React.Component {
     }
 
     onFollowClick = (id) => {
-        debugger
-        this.props.toggleFollowingProgress(true);
+        this.props.toggleFollowingProgress(true, id);
         axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,
             {},
             {
@@ -45,11 +44,11 @@ class UsersContainer extends React.Component {
                 if (response.data.resultCode === 0) {
                     this.props.follow(id)
                 };
-                this.props.toggleFollowingProgress(false)
+                this.props.toggleFollowingProgress(false, id)
         });
     };
     onUnfollowClick = (id) => {
-        this.props.toggleFollowingProgress(true);
+        this.props.toggleFollowingProgress(true, id);
         axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,
             {
                 withCredentials: true,
@@ -61,7 +60,7 @@ class UsersContainer extends React.Component {
                 if (response.data.resultCode === 0) {
                     this.props.unfollow(id)
                 };
-                this.props.toggleFollowingProgress(false)
+                this.props.toggleFollowingProgress(false, id)
         });
     };
 
@@ -82,7 +81,7 @@ class UsersContainer extends React.Component {
                 users={this.props.users}
                 onFollowClick={this.onFollowClick}
                 onUnfollowClick={this.onUnfollowClick}
-                isDisabledFollowingButton={this.props.isDisabledFollowingButton}
+                arrayOfFollowingUsers={this.props.arrayOfFollowingUsers}
             />
         </>
     }
@@ -95,7 +94,7 @@ const mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        isDisabledFollowingButton: state.usersPage.followingInProgress,
+        arrayOfFollowingUsers: state.usersPage.followingInProgress,
     };
 };
 
