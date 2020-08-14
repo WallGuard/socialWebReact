@@ -21,4 +21,13 @@
         width: 200px;
         height: 25px;
     }
+
+    &__login-block {
+        align-self: flex-end;
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    }
   }
