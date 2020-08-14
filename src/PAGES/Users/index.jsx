@@ -6,10 +6,10 @@ const malePic = 'https://toppng.com/uploads/preview/login-icons-user-flat-icon-1
 const femalePic = 'https://www.pinclipart.com/picdir/middle/164-1640717_free-user-icon-flat-189024-download-user-icon.png';
 
 const Users = (props) => {
-    const {totalUsersCount, pageSize, currentPage} = props;
 
+    const {totalUsersCount, pageSize, currentPage, isDisabledFollowingButton} = props;
         const pagesCount = Math.ceil(totalUsersCount / pageSize);
-
+        console.log(isDisabledFollowingButton)
         let pages = []
         for (let i = 1; i <= pagesCount; i++) {
             pages.push(i);
@@ -43,9 +43,9 @@ const Users = (props) => {
                                 </NavLink>
                             </div>
                             { !u.followed ?
-                                <button onClick={() => props.onFollowClick(u.id)}>Follow</button>
+                                <button disabled={isDisabledFollowingButton} onClick={() => props.onFollowClick(u.id)}>Follow</button>
                                 :
-                                <button onClick={() => props.onUnfollowClick(u.id)}>Unfollow</button>
+                                <button disabled={isDisabledFollowingButton} onClick={() => props.onUnfollowClick(u.id)}>Unfollow</button>
                             }
                         </div>
                         <div>

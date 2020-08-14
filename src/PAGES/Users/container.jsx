@@ -9,18 +9,19 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     toggleIsFetching,
+    toggleFollowingProgress
 } from '../../Redux/reducers/users-reducer';
 import Preloader from '../common/Preloader';
+import { usersAPI } from '../../api/api';
 
 class UsersContainer extends React.Component {
 
     getUsersFromDB = (page) => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {withCredentials: true})
-            .then(response => {
-                //debugger
+        usersAPI.getUsers(page, this.props.pageSize)
+            .then(data => {
                 this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
         });
     }
 
@@ -30,6 +31,8 @@ class UsersContainer extends React.Component {
     }
 
     onFollowClick = (id) => {
+        debugger
+        this.props.toggleFollowingProgress(true);
         axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,
             {},
             {
@@ -42,9 +45,11 @@ class UsersContainer extends React.Component {
                 if (response.data.resultCode === 0) {
                     this.props.follow(id)
                 };
+                this.props.toggleFollowingProgress(false)
         });
     };
     onUnfollowClick = (id) => {
+        this.props.toggleFollowingProgress(true);
         axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,
             {
                 withCredentials: true,
@@ -56,6 +61,7 @@ class UsersContainer extends React.Component {
                 if (response.data.resultCode === 0) {
                     this.props.unfollow(id)
                 };
+                this.props.toggleFollowingProgress(false)
         });
     };
 
@@ -76,6 +82,7 @@ class UsersContainer extends React.Component {
                 users={this.props.users}
                 onFollowClick={this.onFollowClick}
                 onUnfollowClick={this.onUnfollowClick}
+                isDisabledFollowingButton={this.props.isDisabledFollowingButton}
             />
         </>
     }
@@ -88,6 +95,7 @@ const mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        isDisabledFollowingButton: state.usersPage.followingInProgress,
     };
 };
 
@@ -98,4 +106,5 @@ export default connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     toggleIsFetching,
+    toggleFollowingProgress,
     })(UsersContainer);
