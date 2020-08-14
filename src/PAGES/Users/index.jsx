@@ -16,13 +16,14 @@ const Users = (props) => {
         };
 
         const validatePic = (gender) => {
-            return gender === 'male' ? malePic : femalePic
+            return !gender ? malePic : femalePic
         };
 
     return (
         <div>
             <div>
-                {pages.map(p => {
+                {pages.map(p => 
+                {
                     return <span onClick={(e) => {props.onPageChanged(p)}} className={currentPage === p && styles.selectedPage}>{p}</span>
                 })}
             </div>
@@ -33,9 +34,9 @@ const Users = (props) => {
                             <div>
                                 <NavLink to={`/profile/` + u.id}>
                                     <img
-                                        src={u.img === 'no' || undefined || null ?
+                                        src={!u.photos.small ?
                                             validatePic(u.gender)
-                                            : u.img}
+                                            : u.photos.small}
                                             width='100px'
                                             alt='avatar'
                                     />
@@ -48,12 +49,12 @@ const Users = (props) => {
                             }
                         </div>
                         <div>
-                            <div>{u.fullName}</div>
+                            <div>{u.name}</div>
                             <div>{u.status}</div>
-                            <div>
+                            {/* <div>
                             <span>{u.location.city}, </span>
                             <span>{u.location.country}</span>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 )
