@@ -6,6 +6,7 @@ import ProfileContainer from './PAGES/Profile/container';
 import DialogsContainer from './PAGES/Dialogs/container';
 import UsersContainer from './PAGES/Users/container';
 import HeaderContainer from './PAGES/Header/container';
+import Login from './PAGES/Login';
 
 const App = (props) => {
   return (
@@ -16,6 +17,7 @@ const App = (props) => {
         <Route path='/profile/:userId?' render={ () => <ProfileContainer />} />
         <Route /*exact*/ path='/dialogs' render={ () => <DialogsContainer />} />
         <Route /*exact*/ path='/users' render={ () => <UsersContainer />} />
+        <Route /*exact*/ path='/login' render={ () => <Login />} />
       </div>
     </div>
   );

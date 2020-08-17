@@ -2,6 +2,7 @@ import React from "react";
 import "./style.scss";
 import UserNames from "./User-Names";
 import Messages from './Messages';
+import { Redirect } from "react-router-dom";
 
 const Dialogs = (props) => {
   
@@ -28,15 +29,19 @@ const Dialogs = (props) => {
 
     const onPostChange = (e) => {
       //const newMessage = newMessageElement.current.value
-      const newMessage = e.target.value;
-      props.changePost(newMessage);
+      	const newMessage = e.target.value;
+      	props.changePost(newMessage);
+    ;}
+
+    if (!props.isAuth) {
+		return <Redirect to={"/login"} />
     }
 
-  return (
-    <div className='dialogs-wrapper'>
-      <div>
-        {userElements}
-      </div>
+  	return (
+    	<div className='dialogs-wrapper'>
+      		<div>
+    	    	{userElements}
+    		</div>
       <div className='field'>
         {messageElements}
           <textarea
