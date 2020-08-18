@@ -2,7 +2,6 @@ import React from "react";
 import "./style.scss";
 import UserNames from "./User-Names";
 import Messages from './Messages';
-import { Redirect } from "react-router-dom";
 
 const Dialogs = (props) => {
   
@@ -32,10 +31,6 @@ const Dialogs = (props) => {
       	const newMessage = e.target.value;
       	props.changePost(newMessage);
     ;}
-
-    if (!props.isAuth) {
-		return <Redirect to={"/login"} />
-    }
 
   	return (
     	<div className='dialogs-wrapper'>
