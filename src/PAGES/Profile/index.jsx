@@ -3,9 +3,11 @@ import "./style.scss";
 import MyPostsContainer from "./MyPosts/container";
 import Preloader from "../common/Preloader";
 //import { addPostActionCreator, updateNewPostTextActionCreator } from '../../Redux/reducers/profile-reducer';
+import ProfileStatus from './ProfileInfo/ProfileStatus';
 
 const Profile = (props) => {
   if (!props.profile) { return <Preloader /> }
+  let status = 'Hello World!';
 
   return (
     <div className="content-wrapper">
@@ -24,6 +26,7 @@ const Profile = (props) => {
               props.profile.photos.large}
             alt="ava"
           />
+          <ProfileStatus status={status} />
         </div>
         <MyPostsContainer />
       </div>
