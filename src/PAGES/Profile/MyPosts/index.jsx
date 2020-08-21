@@ -10,28 +10,16 @@ const MyPosts = (props) => {
     <Post addLike={props.addLike} removeLike={props.removeLike} key={el.id} id={el.id} message={el.message} likes={el.likes} img={el.img} />
   ));
 
-  const newPostText = props.newPostText
-
-  const onAddPost = () => {
-    newPostText !== '' && props.addPost();
-  };
-
-  const onPostChange = (e) => {
-    const text = e.target.value;
-    props.updateNewPostText(text);
+  const AddPost = (values) => {
+    values.newPostText !== '' && props.addPost(values.newPostText);
+    values.newPostText = '';
   };
 
   return (
     <div>
       <div>
         <h3>My posts</h3>
-        <MyPostReduxForm />
-      </div>
-      <div>
-        <textarea value={newPostText} onChange={onPostChange} />
-      </div>
-      <div>
-        <button onClick={onAddPost}>Add post</button>
+        <MyPostReduxForm onSubmit={AddPost} />
       </div>
       {messageElements}
     </div>

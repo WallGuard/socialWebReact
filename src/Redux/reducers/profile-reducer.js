@@ -51,29 +51,28 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST :
             let newPost = {
                 id: state.postData.length + 1,
-                message: state.newPostText,
+                message: action.newPostText,
                 likes: 0,
                 img: img,
             }
             return {
                 ...state,
                 postData: [...state.postData, {...newPost}],
-                newPostText: '',
             };
         case UPDATE_NEW_POST_TEXT :
             return {
                 ...state,
                 newPostText: action.newText,
             };
-            case ADD_LIKE :
-                return {
-                    ...state,
-                    postData: state.postData.map( p => {
-                        if (p.id === action.postID) {
-                            return {...p, likes: p.likes + 1}
-                        };
-                        return p;})
-                };
+        case ADD_LIKE :
+            return {
+                ...state,
+                postData: state.postData.map( p => {
+                    if (p.id === action.postID) {
+                        return {...p, likes: p.likes + 1}
+                    };
+                    return p;})
+            };
                 case REMOVE_LIKE :
                     return {
                         ...state,
@@ -98,8 +97,8 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const addPostActionCreator = () => {
-    return {type: ADD_POST};
+export const addPostActionCreator = (newPostText) => {
+    return {type: ADD_POST, newPostText};
   };
 export const updateNewPostTextActionCreator = (text) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: text};
