@@ -2,7 +2,7 @@ import React from "react";
 import "./style.scss";
 import Header from '.';
 import { connect } from 'react-redux';
-import { getAuthUserData } from '../../Redux/reducers/auth-reducer';
+import { getAuthUserData, logout } from '../../Redux/reducers/auth-reducer';
 
 class HeaderContainer extends React.Component {
 
@@ -12,7 +12,7 @@ class HeaderContainer extends React.Component {
 
   render() {
     return (
-      <Header isAuth={this.props.isAuth} login={this.props.login}/>
+      <Header isAuth={this.props.isAuth} login={this.props.login} logout={this.props.logout} />
     );
   };
 };
@@ -22,4 +22,4 @@ const mapStateToProps = (state) => ({
   login: state.auth.login,
 });
 
-export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer);
+export default connect(mapStateToProps, {getAuthUserData, logout})(HeaderContainer);
