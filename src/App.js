@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Route, withRouter} from "react-router-dom";
 import './App.scss';
 import Navbar from './PAGES/Navigation';
 import ProfileContainer from './PAGES/Profile/container';
@@ -7,9 +7,22 @@ import DialogsContainer from './PAGES/Dialogs/container';
 import UsersContainer from './PAGES/Users/container';
 import HeaderContainer from './PAGES/Header/container';
 import Login from './PAGES/Login';
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {initializeApp} from "./Redux/reducers/app-reducer";
+import Preloader from "./PAGES/common/Preloader";
 
-const App = (props) => {
-  return (
+class App extends Component {
+  componentDidMount() {
+      this.props.initializeApp();
+  }
+
+  render() {
+      if (!this.props.initialized) {
+          return <Preloader/>
+      }
+
+      return (
     <div className="app-wrapper">
       <HeaderContainer />
       <Navbar />
@@ -22,5 +35,12 @@ const App = (props) => {
     </div>
   );
 }
+}
 
-export default App;
+const mapStateToProps = (state) => ({
+  initialized: state.app.initialized
+})
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps, {initializeApp}))(App); 
