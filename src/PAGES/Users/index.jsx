@@ -6,7 +6,6 @@ const malePic = 'https://toppng.com/uploads/preview/login-icons-user-flat-icon-1
 const femalePic = 'https://www.pinclipart.com/picdir/middle/164-1640717_free-user-icon-flat-189024-download-user-icon.png';
 
 const Users = (props) => {
-
     const {totalUsersCount, pageSize, currentPage, arrayOfFollowingUsers} = props;
         const pagesCount = Math.ceil(totalUsersCount / pageSize);
         let pages = []
