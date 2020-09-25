@@ -3,7 +3,8 @@ import "./style.scss";
 import MyPostsContainer from "./MyPosts/container";
 import Preloader from "../common/Preloader";
 //import { addPostActionCreator, updateNewPostTextActionCreator } from '../../Redux/reducers/profile-reducer';
-import ProfileStatus from './ProfileInfo/ProfileStatus';
+// import ProfileStatus from './ProfileInfo/ProfileStatus';
+import ProfileStatusWithHooks from './ProfileInfo/ProfileStatusWithHooks';
 
 const Profile = (props) => {
   if (!props.profile) { return <Preloader /> }
@@ -25,7 +26,11 @@ const Profile = (props) => {
               props.profile.photos.large}
             alt="ava"
           />
-          <ProfileStatus
+          {/* <ProfileStatus
+            status={props.status}
+            updateStatus={props.updateStatus}
+          /> */}
+          <ProfileStatusWithHooks
             status={props.status}
             updateStatus={props.updateStatus}
           />
