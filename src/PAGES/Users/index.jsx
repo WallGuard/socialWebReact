@@ -6,59 +6,58 @@ const malePic = 'https://toppng.com/uploads/preview/login-icons-user-flat-icon-1
 const femalePic = 'https://www.pinclipart.com/picdir/middle/164-1640717_free-user-icon-flat-189024-download-user-icon.png';
 
 const Users = (props) => {
-    const {totalUsersCount, pageSize, currentPage, arrayOfFollowingUsers} = props;
-        const pagesCount = Math.ceil(totalUsersCount / pageSize);
-        let pages = []
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i);
-        };
+  const { totalUsersCount, pageSize, currentPage, arrayOfFollowingUsers } = props;
+  const pagesCount = Math.ceil(totalUsersCount / pageSize);
+  let pages = []
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(i);
+  };
 
-        const validatePic = (gender) => {
-            return !gender ? malePic : femalePic
-        };
+  const validatePic = (gender) => {
+    return !gender ? malePic : femalePic
+  };
 
-    return (
-        <div>
+  return (
+    <div>
+      <div>
+        {pages.map(p => {
+          return <span onClick={(e) => { props.onPageChanged(p) }} className={currentPage === p && styles.selectedPage}>{p}</span>
+        })}
+      </div>
+      {
+        props.users.map(u =>
+          <div key={u.id}>
             <div>
-                {pages.map(p => 
-                {
-                    return <span onClick={(e) => {props.onPageChanged(p)}} className={currentPage === p && styles.selectedPage}>{p}</span>
-                })}
+              <div>
+                <NavLink to={`/profile/` + u.id}>
+                  <img
+                    src={!u.photos.small ?
+                      validatePic(u.gender)
+                      : u.photos.small}
+                    width='100px'
+                    alt='avatar'
+                  />
+                </NavLink>
+              </div>
+              {!u.followed ?
+                <button disabled={arrayOfFollowingUsers.some(id => id === u.id)} onClick={() => props.onFollowClick(u.id)}>Follow</button>
+                :
+                <button disabled={arrayOfFollowingUsers.some(id => id === u.id)} onClick={() => props.onUnfollowClick(u.id)}>Unfollow</button>
+              }
             </div>
-            {
-                props.users.map(u => 
-                    <div key={u.id}>
-                        <div>
-                            <div>
-                                <NavLink to={`/profile/` + u.id}>
-                                    <img
-                                        src={!u.photos.small ?
-                                            validatePic(u.gender)
-                                            : u.photos.small}
-                                            width='100px'
-                                            alt='avatar'
-                                    />
-                                </NavLink>
-                            </div>
-                            { !u.followed ?
-                                <button disabled={arrayOfFollowingUsers.some(id => id === u.id)} onClick={() => props.onFollowClick(u.id)}>Follow</button>
-                                :
-                                <button disabled={arrayOfFollowingUsers.some(id => id === u.id)} onClick={() => props.onUnfollowClick(u.id)}>Unfollow</button>
-                            }
-                        </div>
-                        <div>
-                            <div>{u.name}</div>
-                            <div>{u.status}</div>
-                            {/* <div>
+            <div>
+              <div>{u.name}</div>
+              <div>{u.status}</div>
+              {/* <div>
                             <span>{u.location.city}, </span>
                             <span>{u.location.country}</span>
                             </div> */}
-                        </div>
-                    </div>
-                )
-            }
-        </div>
-    )
+            </div>
+          </div>
+        )
+      }
+    </div>
+  )
 }
 
 export default Users;

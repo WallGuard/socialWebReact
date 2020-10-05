@@ -2,61 +2,61 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Users from './index';
 import {
-    follow,
-    unfollow,
-    setCurrentPage,
-    requestUsers
+  follow,
+  unfollow,
+  setCurrentPage,
+  requestUsers
 } from '../../Redux/reducers/users-reducer';
 import Preloader from '../common/Preloader';
 import { compose } from 'redux';
 import {
-    getCurrentPage,
-    getFollowingInProgress,
-    getIsFetching,
-    getPageSize,
-    getTotalUsersCount,
-    getUsers,
+  getCurrentPage,
+  getFollowingInProgress,
+  getIsFetching,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers,
 } from "../../Redux/users-selectors";
 
 class UsersContainer extends React.Component {
 
-    getUsersFromDB = (page) => {
-        this.props.getUsers(page, this.props.pageSize)
-    }
+  getUsersFromDB = (page) => {
+    this.props.getUsers(page, this.props.pageSize)
+  }
 
-    componentDidMount() {
-        this.getUsersFromDB(this.props.currentPage)
-    }
+  componentDidMount() {
+    this.getUsersFromDB(this.props.currentPage)
+  }
 
-    onFollowClick = (id) => {
-        this.props.follow(id)
-    };
+  onFollowClick = (id) => {
+    this.props.follow(id)
+  };
 
-    onUnfollowClick = (id) => {
-        this.props.unfollow(id)
-    };
+  onUnfollowClick = (id) => {
+    this.props.unfollow(id)
+  };
 
-    onPageChanged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        this.getUsersFromDB(pageNumber)
-    }
+  onPageChanged = (pageNumber) => {
+    this.props.setCurrentPage(pageNumber);
+    this.getUsersFromDB(pageNumber)
+  }
 
-    render() {
-        return <>
-        {this.props.isFetching && <Preloader />}
-            <Users
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                onPageChanged={this.onPageChanged}
-                users={this.props.users}
-                onFollowClick={this.onFollowClick}
-                onUnfollowClick={this.onUnfollowClick}
-                arrayOfFollowingUsers={this.props.arrayOfFollowingUsers}
-            />
-        </>
-    }
-} 
+  render() {
+    return <>
+      {this.props.isFetching && <Preloader />}
+      <Users
+        totalUsersCount={this.props.totalUsersCount}
+        pageSize={this.props.pageSize}
+        currentPage={this.props.currentPage}
+        onPageChanged={this.onPageChanged}
+        users={this.props.users}
+        onFollowClick={this.onFollowClick}
+        onUnfollowClick={this.onUnfollowClick}
+        arrayOfFollowingUsers={this.props.arrayOfFollowingUsers}
+      />
+    </>
+  }
+}
 
 // const mapStateToProps = (state) => {
 //     return {
@@ -70,22 +70,22 @@ class UsersContainer extends React.Component {
 // };
 
 let mapStateToProps = (state) => {
-    return {
-        users: getUsers(state),
-        pageSize: getPageSize(state),
-        totalUsersCount: getTotalUsersCount(state),
-        currentPage: getCurrentPage(state),
-        isFetching: getIsFetching(state),
-        followingInProgress: getFollowingInProgress(state),
-        arrayOfFollowingUsers: state.usersPage.followingInProgress,
-    }
+  return {
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
+    arrayOfFollowingUsers: state.usersPage.followingInProgress,
+  }
 }
 
 export default compose(
-    connect(mapStateToProps, {
-        follow,
-        unfollow,
-        setCurrentPage,
-        getUsers: requestUsers,
-        }),
+  connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setCurrentPage,
+    getUsers: requestUsers,
+  }),
 )(UsersContainer)
