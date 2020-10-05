@@ -61,7 +61,7 @@ const profileReducer = (state = initialState, action) => {
 				postData: [...state.postData, { ...newPost }],
 			};
 		case DELETE_POST:
-			return { ...state, posts: state.posts.filter(p => p.id !== action.postID) }
+			return { ...state, postData: state.postData.filter(p => p.id !== action.postID) }
 		case UPDATE_NEW_POST_TEXT:
 			return {
 				...state,

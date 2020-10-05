@@ -8,22 +8,22 @@ import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
 const mapStateToProps = (state) => {
-    return {
-        dialogsPage: state.dialogsPage,
-    }
+  return {
+    dialogsPage: state.dialogsPage,
+  }
 };
 const mapDispatchToProps = (dispatch) => {
-    return {
-        sendMessage: (newMessage) => {
-            dispatch(sendMessageActionCreator(newMessage));
-        },
-        changePost: (newMessage) => {
-            dispatch(updateNewMessageTextActionCreator(newMessage));
-        },
-    }
+  return {
+    sendMessage: (newMessage) => {
+      dispatch(sendMessageActionCreator(newMessage));
+    },
+    changePost: (newMessage) => {
+      dispatch(updateNewMessageTextActionCreator(newMessage));
+    },
+  }
 };
 
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
-    withAuthRedirect,
-    )(Dialogs);
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect,
+)(Dialogs);
