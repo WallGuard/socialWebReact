@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, withRouter } from "react-router-dom";
+import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import './App.scss';
 import Navbar from './PAGES/Navigation';
 import ProfileContainer from './PAGES/Profile/container';
@@ -7,10 +7,11 @@ import DialogsContainer from './PAGES/Dialogs/container';
 import UsersContainer from './PAGES/Users/container';
 import HeaderContainer from './PAGES/Header/container';
 import Login from './PAGES/Login';
-import { connect } from "react-redux";
+import { connect, Provider } from "react-redux";
 import { compose } from "redux";
 import { initializeApp } from "./Redux/reducers/app-reducer";
 import Preloader from "./PAGES/common/Preloader";
+import store from "./Redux/redux-store";
 
 class App extends Component {
   componentDidMount() {
@@ -41,6 +42,16 @@ const mapStateToProps = (state) => ({
   initialized: state.app.initialized
 })
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, { initializeApp }))(App); 
+  let AppContainer = compose(
+    withRouter,
+    connect(mapStateToProps, {initializeApp}))(App);
+
+const ReactApp = (props) => {
+  return <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer />
+        </Provider>
+    </BrowserRouter>
+}
+
+export default ReactApp;
