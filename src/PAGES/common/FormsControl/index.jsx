@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Field} from "redux-form";
 
 
 const FormControl = ({ input, meta, ...props }) => {
@@ -33,6 +34,21 @@ export const Textarea2 = ({ input, meta, ...props }) => {
     </div>
   )
 };
+
+export const Input = (props) => {
+  const { input, meta, child, ...restProps } = props;
+  return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
+};
+
+export const createField = (placeholder, name, validators, component, props = {}, text = "") => (
+  <div>
+    <Field placeholder={placeholder} name={name}
+      validate={validators}
+      component={component}
+      {...props}
+    /> {text}
+  </div>
+)
 
 const PostTextarea = styled.textarea`
     ${props => props.isError && 'border: 3px solid red;'}

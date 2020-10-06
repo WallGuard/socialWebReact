@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import "./style.scss";
 import Profile from ".";
-import { getUserProfile, getStatus, updateStatus, savePhoto } from '../../Redux/reducers/profile-reducer';
+import { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile } from '../../Redux/reducers/profile-reducer';
 // import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
@@ -52,7 +52,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default compose(
-  connect(mapStateToProps, { getUserProfile, getStatus, updateStatus, savePhoto}),
+  connect(mapStateToProps, { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile}),
   withRouter,
   // withAuthRedirect,
 )(ProfileContainer);
