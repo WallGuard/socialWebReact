@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom";
 import './App.scss';
 import Navbar from './PAGES/Navigation';
 // import ProfileContainer from './PAGES/Profile/container';
@@ -18,9 +18,17 @@ const DialogsContainer = React.lazy(() => import('./PAGES/Dialogs/container'));
 const ProfileContainer = React.lazy(() => import('./PAGES/Profile/container'));
 
 class App extends Component {
+  catchAllUnhandledErrors = (reason, promise) => {
+    alert("Some error occured");
+    //console.error(promiseRejectionEvent);
+  };
+
   componentDidMount() {
     this.props.initializeApp();
-  }
+  };
+  componentWillUnmount() {
+    window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+  };
 
   render() {
     if (!this.props.initialized) {
@@ -32,10 +40,13 @@ class App extends Component {
         <HeaderContainer className="app-wrapper" />
         <Navbar />
         <div className="app-wrapper-content">
-          <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
-          <Route /*exact*/ path='/dialogs' render={withSuspense(DialogsContainer)}/>
-          <Route /*exact*/ path='/users' render={() => <UsersContainer />} />
-          <Route /*exact*/ path='/login' render={() => <Login />} />
+          <Switch>
+            <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
+            <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
+            <Route path='/users' render={() => <UsersContainer />} />
+            <Route path='/login' render={() => <Login />} />
+            <Route path='*' render={() => <div>404 NOT FOUND</div>} />
+          </Switch>
         </div>
       </div>
     );
@@ -46,16 +57,16 @@ const mapStateToProps = (state) => ({
   initialized: state.app.initialized
 })
 
-  let AppContainer = compose(
-    withRouter,
-    connect(mapStateToProps, {initializeApp}))(App);
+let AppContainer = compose(
+  withRouter,
+  connect(mapStateToProps, { initializeApp }))(App);
 
 const ReactApp = (props) => {
   return <BrowserRouter>
-        <Provider store={store}>
-            <AppContainer />
-        </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  </BrowserRouter>
 }
 
 export default ReactApp;

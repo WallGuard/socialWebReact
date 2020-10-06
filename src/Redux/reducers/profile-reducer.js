@@ -148,13 +148,19 @@ export const getStatus = (userId) => (dispatch) => {
     });
 };
 
-export const updateStatus = (status) => (dispatch) => {
-  profileAPI.updateStatus(status)
-    .then(response => {
+export const updateStatus = (status) => async (dispatch) => {
+  try {
+    let response = await profileAPI.updateStatus(status);
+
+    if (response.data.resultCode === 0) {
+      dispatch(setStatus(status));
       if (response.data.resultCode === 0) {
-        dispatch(setStatus(status))
+        dispatch(setStatus(status));
       }
-    });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 export const savePhoto = (file) => async (dispatch) => {
