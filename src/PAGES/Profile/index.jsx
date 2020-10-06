@@ -2,12 +2,25 @@ import React from "react";
 import "./style.scss";
 import MyPostsContainer from "./MyPosts/container";
 import Preloader from "../common/Preloader";
-//import { addPostActionCreator, updateNewPostTextActionCreator } from '../../Redux/reducers/profile-reducer';
-// import ProfileStatus from './ProfileInfo/ProfileStatus';
 import ProfileStatusWithHooks from './ProfileInfo/ProfileStatusWithHooks';
+import userPhoto from "../../assets/spinner.gif";
+
 
 const Profile = (props) => {
+
+  const {
+    profile,
+    isOwner,
+    savePhoto
+  } = props;
+
   if (!props.profile) { return <Preloader /> }
+
+  const onMainPhotoSelected = (e) => {
+    if (e.target.files.length) {
+      savePhoto(e.target.files[0]);
+    }
+}
 
   return (
     <div className="content-wrapper">
@@ -18,18 +31,8 @@ const Profile = (props) => {
           alt="main content"
         />
         <div className="content__profile">
-          <img
-            className="content__profile-ava"
-            src={!props.profile.photos.large ?
-              "https://i.pinimg.com/originals/ca/76/0b/ca760b70976b52578da88e06973af542.jpg"
-              :
-              props.profile.photos.large}
-            alt="ava"
-          />
-          {/* <ProfileStatus
-            status={props.status}
-            updateStatus={props.updateStatus}
-          /> */}
+          <img src={profile.photos.large || userPhoto} className="content__profile-ava" alt="ava" />
+                { isOwner && <input type={"file"} onChange={onMainPhotoSelected} />}
           <ProfileStatusWithHooks
             status={props.status}
             updateStatus={props.updateStatus}
